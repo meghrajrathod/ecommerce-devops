@@ -1,0 +1,39 @@
+# Terraform
+*.tfstate
+*.tfstate.backup
+.terraform/
+
+# Environment Files
+.env
+.env.*
+
+# Logs
+*.log
+
+# Node
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+
+# Java
+target/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# SonarQube
+sonarqube/data/
+sonarqube/extensions/
+
+# ELK
+logging/elasticsearch/data/
+
+# Kubernetes
+kubeconfig
