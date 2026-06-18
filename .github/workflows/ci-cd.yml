@@ -5,7 +5,7 @@ on:
     branches: ["main", "develop"]
 
 jobs:
-  build:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,3 +32,21 @@ jobs:
           docker push ${{ secrets.DOCKER_USERNAME }}/ecommerce-frontend
           docker push ${{ secrets.DOCKER_USERNAME }}/product-service
           docker push ${{ secrets.DOCKER_USERNAME }}/user-service
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ec2-user
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd /home/ec2-user/ecommerce-devops
+            git pull origin main
+            docker-compose down
+            docker-compose up -d --build
+
