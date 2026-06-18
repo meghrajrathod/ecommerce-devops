@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ecommerce DevSecOps Platform</title>
+</head>
+<body>
+    <h1>Ecommerce DevSecOps Platform</h1>
+    <p>Built by Meghraj Rathod</p>
+
+    <h2>Products</h2>
+    <ul id="products"></ul>
+
+    <script>
+        fetch('http://localhost:8081/products')
+            .then(response => response.json())
+            .then(data => {
+                var list = document.getElementById('products');
+
+                for (var i = 0; i < data.length; i++) {
+                    var product = data[i];
+                    var item = document.createElement('li');
+
+                    item.innerHTML = product.name + " - ?" + product.price;
+
+                    list.appendChild(item);
+                }
+            });
+    </script>
+</body>
+</html>

@@ -32,3 +32,15 @@ module "vpc" {
   public_subnet_1_cidr = "10.0.1.0/24"
   public_subnet_2_cidr = "10.0.2.0/24"
 }
+
+module "ec2" {
+  source = "../../modules/ec2"
+
+  project_name = "ecommerce-devops"
+
+  vpc_id    = module.vpc.vpc_id
+  subnet_id = module.vpc.public_subnet_1_id
+
+  instance_type = "t3.micro"
+  key_name = "ecommerce-devops-key-v2"
+}

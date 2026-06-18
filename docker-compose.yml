@@ -1,0 +1,26 @@
+services:
+
+  product-service:
+    image: product-service:v3
+    ports:
+      - "8081:5000"
+
+  user-service:
+    image: user-service:v1
+    ports:
+      - "3000:3000"
+
+  api-gateway:
+    image: api-gateway:v6
+    ports:
+      - "80:80"
+    depends_on:
+      - product-service
+      - user-service
+
+  frontend:
+    image: ecommerce-frontend:v3
+    ports:
+      - "8080:80"
+    depends_on:
+      - api-gateway
